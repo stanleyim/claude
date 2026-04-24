@@ -442,4 +442,259 @@ function renderCards(list){
       </div>
 
       <div class="chips">
-        ${(s.foreignBuyDays||0)>0?`<span class="chip cf">외인 ${s.fo
+        ${(s.foreignBuyDays||0)>0?`<span class="chip cf">외인 ${s.foreignBuyDays}일 순매수</span>`:''}
+        ${(s.institutionBuyDays||0)>0?`<span class="chip ci">기관 ${s.institutionBuyDays}일 순매수</span>`:''}
+        ${(bd.volume||0)>=70?`<span class="chip cv">거래량 급증</span>`:''}
+        ${(bd.news||0)>=65?`<span class="chip cn">뉴스 긍정</span>`:''}
+      </div>
+
+      <!-- ★ 이유 박스 -->
+      ${reasons.length?`
+      <div class="reason-box">
+        <div class="reason-title">AI 선정 이유</div>
+        <div class="reason-list">
+          ${reasons.slice(0,3).map(r=>`<div class="reason-item">${r}</div>`).join('')}
+        </div>
+      </div>`:''}
+
+      <!-- ★ 리스크 박스 -->
+      <div class="risk-box">
+        <span class="risk-icon">⚠️</span>
+        <span class="risk-text">${risk}</span>
+      </div>
+
+      <!-- 팩터 바 -->
+      <div class="facs">
+        ${FK.map((k,j)=>`
+          <div class="fr">
+            <div class="fn">${FL[j]}</div>
+            <div class="fb"><div class="fbar" style="width:${bd[k]||0}%"></div></div>
+            <div class="fv">${bd[k]||0}</div>
+          </div>`).join('')}
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function renderCharts(list){
+  const avg=arr=>arr.reduce((a,b)=>a+b,0)/arr.length;
+  if(radarC) radarC.destroy();
+  radarC=new Chart(document.getElementById('radar').getContext('2d'),{
+    type:'radar',
+    data:{labels:FL.map((l,i)=>`${l}(${FW[i]})`),
+          datasets:[{label:'평균',data:FK.map(k=>Math.round(avg(list.map(s=>s.score?.breakdown?.[k]||0)))),
+            backgroundColor:'rgba(59,130,246,.12)',borderColor:'#3b82f6',
+            pointBackgroundColor:'#60a5fa',pointRadius:4,borderWidth:2}]},
+    options:{responsive:true,maintainAspectRatio:false,
+      scales:{r:{min:0,max:100,grid:{color:'rgba(255,255,255,.05)'},
+        ticks:{color:'#5a6a88',font:{size:8},stepSize:25,backdropColor:'transparent'},
+        pointLabels:{color:'#8899bb',font:{size:9}},
+        angleLines:{color:'rgba(255,255,255,.05)'}}},
+      plugins:{legend:{display:false}}}
+  });
+
+  if(barC) barC.destroy();
+  barC=new Chart(document.getElementById('barC').getContext('2d'),{
+    type:'bar',
+    data:{labels:list.map(s=>s.name),
+          datasets:[{label:'AI점수',data:list.map(s=>s.score?.total||0),
+            backgroundColor:list.map((_,i)=>i<3?'rgba(245,158,11,.7)':'rgba(59,130,246,.5)'),
+            borderColor:list.map((_,i)=>i<3?'#f59e0b':'#3b82f6'),
+            borderWidth:1,borderRadius:4}]},
+    options:{responsive:true,maintainAspectRatio:false,
+      scales:{x:{ticks:{color:'#5a6a88',font:{size:8}},grid:{display:false}},
+              y:{min:40,max:100,ticks:{color:'#5a6a88',font:{size:8}},
+                grid:{color:'rgba(255,255,255,.04)'}}},
+      plugins:{legend:{display:false}}}
+  });
+}
+
+// ════════════════════════════════
+// 성과 추적 탭
+// ════════════════════════════════
+let histData=[];
+function getHistory(){
+  try{ return JSON.parse(localStorage.getItem('aiStockHistory')||'[]'); }catch(e){ return []; }
+}
+function saveHistory(list, date){
+  let h=getHistory();
+  if(h.find(x=>x.date===date)) return;
+  list.forEach(s=>{
+    h.push({date,rank:s.rank||0,code:s.code,name:s.name,
+      entryPrice:s.price||0,currentPrice:s.price||0,
+      returnRate:0,score:s.score?.total||0,
+      reasons:s.score?.reasons||[],risk:s.score?.risk||'',
+      result:'pending'});
+  });
+  if(h.length>300) h=h.slice(-300);
+  localStorage.setItem('aiStockHistory',JSON.stringify(h));
+}
+
+function switchTab(t){
+  document.querySelectorAll('.ptab').forEach((el,i)=>{
+    el.classList.toggle('active',(i===0&&t==='recent')||(i===1&&t==='stats'));
+  });
+  document.getElementById('tabRecent').style.display=t==='recent'?'':'none';
+  document.getElementById('tabStats').style.display=t==='stats'?'':'none';
+}
+
+function renderHistory(){
+  const h=getHistory().slice(-50).reverse();
+  if(!h.length){
+    document.getElementById('tabRecent').innerHTML=
+      '<p style="font-size:.78rem;color:var(--text3);padding:8px 0">아직 데이터가 없습니다. 매일 분석이 쌓이면 자동으로 표시됩니다.</p>';
+    return;
+  }
+  document.getElementById('tabRecent').innerHTML=`
+    <table class="htable">
+      <thead><tr>
+        <th>날짜</th><th>순위</th><th>종목</th><th>추천가</th><th>수익률</th><th>결과</th>
+      </tr></thead>
+      <tbody>${h.slice(0,30).map(x=>`
+        <tr>
+          <td style="color:var(--text3)">${x.date}</td>
+          <td style="color:var(--text3)">${x.rank||'-'}위</td>
+          <td><b>${x.name}</b></td>
+          <td>${(x.entryPrice||0).toLocaleString()}</td>
+          <td class="${(x.returnRate||0)>=0?'up':'down'}">${(x.returnRate||0)>=0?'+':''}${x.returnRate||0}%</td>
+          <td class="${x.result==='hit'?'hit':x.result==='miss'?'miss':'pend'}">
+            ${x.result==='hit'?'✅ 적중':x.result==='miss'?'❌ 미적중':'⏳ 대기'}
+          </td>
+        </tr>`).join('')}
+      </tbody>
+    </table>`;
+
+  // 통계 탭
+  const done=h.filter(x=>x.result!=='pending');
+  const hits=done.filter(x=>x.result==='hit');
+  const rate=done.length?Math.round(hits.length/done.length*100):0;
+  const avgRet=done.length?Math.round(done.reduce((a,x)=>a+(x.returnRate||0),0)/done.length*10)/10:0;
+  document.getElementById('tabStats').innerHTML=`
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;padding:4px 0">
+      ${[
+        ['누적 추천',h.length+'건'],
+        ['검증 완료',done.length+'건'],
+        ['적중',hits.length+'건'],
+        ['적중률',rate+'%'],
+        ['평균 수익률',(avgRet>=0?'+':'')+avgRet+'%'],
+      ].map(([l,v])=>`
+        <div style="background:var(--bg3);border-radius:10px;padding:10px 12px">
+          <div style="font-size:.65rem;color:var(--text3);margin-bottom:4px">${l}</div>
+          <div style="font-family:'Space Grotesk',sans-serif;font-size:1.15rem;font-weight:700">${v}</div>
+        </div>`).join('')}
+    </div>`;
+}
+
+// ════════════════════════════════
+// 모달
+// ════════════════════════════════
+function openM(i){
+  const s=stocks[i];
+  document.getElementById('mName').textContent=s.name;
+  document.getElementById('mMeta').textContent=`${s.code} · ${s.market} · ${s.sector||'기타'} · 랭킹 ${s.rank||i+1}위`;
+  document.getElementById('mStats').innerHTML=[
+    ['현재가',(s.price||0).toLocaleString()+'원',''],
+    ['등락률',(s.changeRate>=0?'+':'')+s.changeRate+'%',s.changeRate>=0?'up':'down'],
+    ['AI점수',(s.score?.total||0)+'점','accent2'],
+    ['PER/ROE',(s.per||'-')+'/'+(s.roe||'-')+'%',''],
+  ].map(([l,v,cls])=>`<div class="mst"><div class="mstl">${l}</div>
+    <div class="mstv" ${cls==='up'?'style="color:var(--green)"':cls==='down'?'style="color:var(--red)"':cls==='accent2'?'style="color:var(--accent2)"':''}>${v}</div></div>`).join('');
+
+  if(mChart) mChart.destroy();
+  const c=s.closes||[];
+  mChart=new Chart(document.getElementById('mChart').getContext('2d'),{
+    type:'line',
+    data:{labels:Array.from({length:c.length},(_,i)=>i+1),
+          datasets:[{data:c,borderColor:'#3b82f6',backgroundColor:'rgba(59,130,246,.07)',
+            borderWidth:1.5,pointRadius:0,fill:true,tension:.3}]},
+    options:{responsive:true,maintainAspectRatio:false,
+      scales:{x:{display:false},y:{grid:{color:'rgba(255,255,255,.04)'},
+        ticks:{color:'#5a6a88',font:{size:8},callback:v=>v>=1000?(v/1000).toFixed(0)+'K':v}}},
+      plugins:{legend:{display:false}}}
+  });
+
+  const reasons=s.score?.reasons||[];
+  document.getElementById('mReasons').innerHTML=
+    reasons.length?reasons.map(r=>`<div class="mritem">${r}</div>`).join('')
+    :'<div style="font-size:.75rem;color:var(--text3)">분석 데이터 없음</div>';
+  document.getElementById('mRisk').textContent=s.score?.risk||'시장 변동성 유의';
+
+  document.getElementById('mFactors').innerHTML=FK.map((k,j)=>`
+    <div class="mfrow">
+      <div class="mfn">${FL[j]}</div>
+      <div class="mfb"><div class="mfbar" style="width:${s.score?.breakdown?.[k]||0}%"></div></div>
+      <div class="mfp">${s.score?.breakdown?.[k]||0}점</div>
+      <div class="mfw">${FW[j]}</div>
+    </div>`).join('');
+
+  document.getElementById('moverlay').classList.add('open');
+}
+function closeM(e){
+  if(!e||e.target===document.getElementById('moverlay'))
+    document.getElementById('moverlay').classList.remove('open');
+}
+
+// ════════════════════════════════
+// 메인
+// ════════════════════════════════
+async function init(){
+  const data=await loadData();
+  document.getElementById('loading').style.display='none';
+
+  if(!data){
+    document.getElementById('aiText').textContent=
+      'GitHub Actions에서 아직 데이터가 생성되지 않았습니다. Actions → "Run workflow"를 실행해주세요.';
+    document.getElementById('hdate').textContent='데이터 대기 중';
+    document.getElementById('liveBadge').textContent='● 대기';
+    document.getElementById('liveBadge').style.color='var(--gold)';
+    renderHistory();
+    return;
+  }
+
+  stocks=data.stocks||[];
+  const hitStats=data.hitStats||{};
+
+  document.getElementById('hdate').textContent=`${data.date} | 실제 데이터`;
+  renderPerf(hitStats, data.totalAnalyzed);
+  renderIdxBar(data.date, data.totalAnalyzed);
+  saveHistory(stocks, data.date);
+  renderCards(stocks);
+  renderCharts(stocks);
+  renderHistory();
+
+  // AI 코멘트 (백엔드에서 reasons가 없는 경우에만)
+  for(let i=0;i<stocks.length;i++){
+    if(!stocks[i].score?.reasons?.length){
+      const ai=await getAIComment(stocks[i]);
+      if(ai){
+        stocks[i].score.reasons=ai.reason||[];
+        stocks[i].score.risk=ai.risk||stocks[i].score.risk;
+        renderCards(stocks); // 재렌더
+      }
+    }
+  }
+
+  // 시장 요약
+  const top3=stocks.slice(0,3).map(s=>s.name).join(', ');
+  const hr=hitStats.hitRate||0;
+  try{
+    const r=await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,messages:[{role:'user',
+        content:`오늘 AI 주식 레이더에서 ${(data.totalAnalyzed||0).toLocaleString()}개 종목 분석 결과 ${top3} 등이 상위권에 선정됐습니다. 누적 적중률은 ${hr}%입니다. 한국 개인 투자자에게 오늘의 핵심 투자 포인트를 2문장으로 알려주세요.`}]})
+    });
+    const d=await r.json();
+    document.getElementById('aiText').textContent=
+      d.content?.[0]?.text?.trim()||`오늘 ${top3} 등이 수급·모멘텀·거래량 팩터에서 최상위 점수를 기록했습니다.`;
+  }catch(e){
+    document.getElementById('aiText').textContent=
+      `오늘 ${top3} 등이 8팩터 AI 분석에서 상위권에 선정됐습니다. 실제 외인·기관 수급과 기술적 지표가 동시에 긍정적인 종목을 중심으로 선별했습니다.`;
+  }
+}
+
+init();
+</script>
+</body>
+</html>
+
+                                                     
