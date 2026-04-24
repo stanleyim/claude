@@ -252,7 +252,7 @@
         16752132,
         16823480,
         34525485,
-        19162451
+        19165257
       ],
       "foreignBuyDays": 0,
       "institutionBuyDays": 0,
@@ -262,7 +262,7 @@
       "pbr": 1.0,
       "roe": 10.0,
       "debtRatio": 80.0,
-      "marketCap": 1281796584804000,
+      "marketCap": 1283258154456000,
       "price": 219500,
       "changeRate": -2.23
     },
@@ -517,7 +517,7 @@
         3516960,
         2894919,
         5343871,
-        3053879
+        3055534
       ],
       "foreignBuyDays": 0,
       "institutionBuyDays": 0,
@@ -527,7 +527,7 @@
       "pbr": 1.0,
       "roe": 10.0,
       "debtRatio": 80.0,
-      "marketCap": 871634992395000,
+      "marketCap": 870922290030000,
       "price": 1222000,
       "changeRate": -0.24
     },
@@ -782,7 +782,7 @@
         545889,
         364648,
         800536,
-        474404
+        476096
       ],
       "foreignBuyDays": 0,
       "institutionBuyDays": 0,
@@ -792,7 +792,7 @@
       "pbr": 1.0,
       "roe": 10.0,
       "debtRatio": 80.0,
-      "marketCap": 33488038213000,
+      "marketCap": 33566464532000,
       "price": 214000,
       "changeRate": -1.61
     },
@@ -1047,7 +1047,7 @@
         946609,
         747125,
         1089561,
-        1228302
+        1228355
       ],
       "foreignBuyDays": 0,
       "institutionBuyDays": 0,
@@ -1057,7 +1057,7 @@
       "pbr": 1.0,
       "roe": 10.0,
       "debtRatio": 80.0,
-      "marketCap": 104835976192000,
+      "marketCap": 105040733958000,
       "price": 513000,
       "changeRate": -3.57
     },
@@ -1312,7 +1312,7 @@
         2533682,
         1727542,
         1204489,
-        785887
+        786062
       ],
       "foreignBuyDays": 0,
       "institutionBuyDays": 0,
@@ -1322,7 +1322,7 @@
       "pbr": 1.0,
       "roe": 10.0,
       "debtRatio": 80.0,
-      "marketCap": 51735910260000,
+      "marketCap": 51655324730000,
       "price": 641000,
       "changeRate": 1.75
     },
@@ -1577,7 +1577,7 @@
         449161,
         344699,
         373795,
-        308950
+        309047
       ],
       "foreignBuyDays": 0,
       "institutionBuyDays": 0,
@@ -1587,7 +1587,7 @@
       "pbr": 1.0,
       "roe": 10.0,
       "debtRatio": 80.0,
-      "marketCap": 27601606113000,
+      "marketCap": 27636902284500,
       "price": 391500,
       "changeRate": 0.0
     },
@@ -1842,7 +1842,7 @@
         1316511,
         1143499,
         1658254,
-        1064037
+        1064052
       ],
       "foreignBuyDays": 0,
       "institutionBuyDays": 0,
@@ -1852,7 +1852,7 @@
       "pbr": 1.0,
       "roe": 10.0,
       "debtRatio": 80.0,
-      "marketCap": 21264047760000,
+      "marketCap": 21286197809750,
       "price": 48050,
       "changeRate": -0.72
     },
@@ -2107,7 +2107,7 @@
         446662,
         325046,
         475778,
-        448028
+        448117
       ],
       "foreignBuyDays": 0,
       "institutionBuyDays": 0,
@@ -2372,7 +2372,7 @@
         1024414,
         561752,
         558290,
-        292537
+        292559
       ],
       "foreignBuyDays": 0,
       "institutionBuyDays": 0,
@@ -2637,7 +2637,7 @@
         47766,
         44657,
         139459,
-        50717
+        50722
       ],
       "foreignBuyDays": 0,
       "institutionBuyDays": 0,
@@ -2647,7 +2647,7 @@
       "pbr": 1.0,
       "roe": 10.0,
       "debtRatio": 80.0,
-      "marketCap": 70778864079000,
+      "marketCap": 70732573128000,
       "price": 1528000,
       "changeRate": 0.92
     },
@@ -2902,7 +2902,7 @@
         744904,
         541591,
         475016,
-        313455
+        313468
       ],
       "foreignBuyDays": 0,
       "institutionBuyDays": 0,
@@ -3167,7 +3167,7 @@
         758081,
         770589,
         1112754,
-        1069688
+        1074088
       ],
       "foreignBuyDays": 0,
       "institutionBuyDays": 0,
@@ -3177,7 +3177,7 @@
       "pbr": 1.0,
       "roe": 10.0,
       "debtRatio": 80.0,
-      "marketCap": 59928395193000,
+      "marketCap": 59889353893200,
       "price": 153400,
       "changeRate": -3.16
     },
@@ -3432,7 +3432,7 @@
         594032,
         1086402,
         1225606,
-        1072026
+        1072060
       ],
       "foreignBuyDays": 0,
       "institutionBuyDays": 0,
@@ -3697,7 +3697,7 @@
         574865,
         1085847,
         1173646,
-        1046095
+        1046117
       ],
       "foreignBuyDays": 0,
       "institutionBuyDays": 0,
@@ -3707,7 +3707,7 @@
       "pbr": 1.0,
       "roe": 10.0,
       "debtRatio": 80.0,
-      "marketCap": 47417970663900,
+      "marketCap": 47465436100000,
       "price": 100000,
       "changeRate": 0.1
     },
@@ -3962,7 +3962,7 @@
         134683,
         121225,
         129447,
-        186858
+        186903
       ],
       "foreignBuyDays": 0,
       "institutionBuyDays": 0,
@@ -3972,7 +3972,7 @@
       "pbr": 1.0,
       "roe": 10.0,
       "debtRatio": 80.0,
-      "marketCap": 13060378070500,
+      "marketCap": 13012971979500,
       "price": 274500,
       "changeRate": 3.0
     },
@@ -4237,7 +4237,7 @@
       "pbr": 1.0,
       "roe": 10.0,
       "debtRatio": 80.0,
-      "marketCap": 5849201973000,
+      "marketCap": 5827657951000,
       "price": 270500,
       "changeRate": -0.18
     },
@@ -4492,7 +4492,7 @@
         617819,
         1447753,
         835961,
-        794082
+        794083
       ],
       "foreignBuyDays": 0,
       "institutionBuyDays": 0,
@@ -4502,7 +4502,7 @@
       "pbr": 1.0,
       "roe": 10.0,
       "debtRatio": 80.0,
-      "marketCap": 3655702949500,
+      "marketCap": 3662127735000,
       "price": 57000,
       "changeRate": 2.52
     },
@@ -4757,7 +4757,7 @@
         962694,
         744134,
         704169,
-        388846
+        388962
       ],
       "foreignBuyDays": 0,
       "institutionBuyDays": 0,
@@ -4767,7 +4767,7 @@
       "pbr": 1.0,
       "roe": 10.0,
       "debtRatio": 80.0,
-      "marketCap": 20299815055000,
+      "marketCap": 20348730272000,
       "price": 208000,
       "changeRate": 1.22
     },
@@ -5022,7 +5022,7 @@
         2443999,
         1874518,
         1550258,
-        1045619
+        1045704
       ],
       "foreignBuyDays": 0,
       "institutionBuyDays": 0,
@@ -5032,7 +5032,7 @@
       "pbr": 1.0,
       "roe": 10.0,
       "debtRatio": 80.0,
-      "marketCap": 21276123018400,
+      "marketCap": 21262545403200,
       "price": 156600,
       "changeRate": -0.38
     },
@@ -5287,7 +5287,7 @@
         1363543,
         880220,
         529996,
-        402443
+        402718
       ],
       "foreignBuyDays": 0,
       "institutionBuyDays": 0,
@@ -5297,7 +5297,7 @@
       "pbr": 1.0,
       "roe": 10.0,
       "debtRatio": 80.0,
-      "marketCap": 112671000000000,
+      "marketCap": 112554000000000,
       "price": 481000,
       "changeRate": 3.11
     },
@@ -5552,7 +5552,7 @@
         1167957,
         618073,
         568659,
-        445752
+        445814
       ],
       "foreignBuyDays": 0,
       "institutionBuyDays": 0,
@@ -5562,7 +5562,7 @@
       "pbr": 1.0,
       "roe": 10.0,
       "debtRatio": 80.0,
-      "marketCap": 22416399688800,
+      "marketCap": 22467115525200,
       "price": 132900,
       "changeRate": -0.23
     },
@@ -5827,7 +5827,7 @@
       "pbr": 1.0,
       "roe": 10.0,
       "debtRatio": 80.0,
-      "marketCap": 34294288067000,
+      "marketCap": 34273415098000,
       "price": 1642000,
       "changeRate": -1.91
     },
@@ -6082,7 +6082,7 @@
         212744,
         232274,
         307290,
-        669365
+        669397
       ],
       "foreignBuyDays": 0,
       "institutionBuyDays": 0,
@@ -6347,7 +6347,7 @@
         821520,
         1117187,
         1227356,
-        1373787
+        1373810
       ],
       "foreignBuyDays": 0,
       "institutionBuyDays": 0,
@@ -6357,7 +6357,7 @@
       "pbr": 1.0,
       "roe": 10.0,
       "debtRatio": 80.0,
-      "marketCap": 19949483065500,
+      "marketCap": 19902321167000,
       "price": 21100,
       "changeRate": 1.69
     },
@@ -6622,7 +6622,7 @@
       "pbr": 1.0,
       "roe": 10.0,
       "debtRatio": 80.0,
-      "marketCap": 2138364046000,
+      "marketCap": 2133785108000,
       "price": 93200,
       "changeRate": 0.54
     },
@@ -6877,7 +6877,7 @@
         123276,
         207532,
         228512,
-        153122
+        153124
       ],
       "foreignBuyDays": 0,
       "institutionBuyDays": 0,
@@ -6887,7 +6887,7 @@
       "pbr": 1.0,
       "roe": 10.0,
       "debtRatio": 80.0,
-      "marketCap": 2252759992800,
+      "marketCap": 2256313242000,
       "price": 63500,
       "changeRate": 0.79
     },
@@ -7142,7 +7142,7 @@
         438082,
         172289,
         184614,
-        185003
+        185004
       ],
       "foreignBuyDays": 0,
       "institutionBuyDays": 0,
@@ -7152,7 +7152,7 @@
       "pbr": 1.0,
       "roe": 10.0,
       "debtRatio": 80.0,
-      "marketCap": 787604805600,
+      "marketCap": 785907381450,
       "price": 23150,
       "changeRate": 1.09
     },
@@ -7682,7 +7682,7 @@
       "pbr": 1.0,
       "roe": 10.0,
       "debtRatio": 80.0,
-      "marketCap": 50677806562500,
+      "marketCap": 50515637581500,
       "price": 311500,
       "changeRate": -2.66
     },
