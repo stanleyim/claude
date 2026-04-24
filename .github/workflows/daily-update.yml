@@ -2,10 +2,9 @@ name: Daily Stock Analysis
 
 on:
   schedule:
-    # 매일 오전 8시 (한국시간 = UTC+9, GitHub Actions는 UTC 기준)
-    - cron: '0 23 * 0-4'  # 일~목 23:00 UTC = 한국 월~금 08:00
+    # 매일 오전 5시 30분 (한국시간 = UTC+9, GitHub Actions는 UTC 기준)
+    - cron: '30 20 * 0-4'  # 일~목 20:30 UTC = 한국 월~금 05:30
   workflow_dispatch:  # 수동 실행 가능
-
 jobs:
   update-data:
     runs-on: ubuntu-latest
