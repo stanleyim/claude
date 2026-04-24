@@ -407,29 +407,31 @@ total=(sc1*.25+sc2*.18+sc3*.15+sc4*.13+
 # 점수 높은 팩터 순으로 reason 최대 4개
 pairs = sorted([(sc1, r1), (sc2, r2), (sc3, r3), (sc4, r4),
                 (sc5, r5), (sc6, r6), (sc7, r7), (sc8, r8)], key=lambda x: -x[0])
-reasons=[]
-for _,rs in pairs:
+    reasons = []
+    for _, rs in pairs:
         for x in rs:
-            if x not in reasons: reasons.append(x)
-        if len(reasons)>=4: break
+            if x not in reasons:
+                reasons.append(x)
+        if len(reasons) >= 4:
+            break
 
-    risk=_auto_risk(s,sc1,sc2,sc5,sc8)
+    risk = _auto_risk(s, sc1, sc2, sc5, sc8)
 
     return {
-        "total": round(total,1),
+        "total": round(total, 1),
         "breakdown": {
-            "supply":      round(sc1,1),
-            "momentum":    round(sc2,1),
-            "volume":      round(sc3,1),
-            "fundamental": round(sc4,1),
-            "volatility":  round(sc5,1),
-            "news":        round(sc6,1),
-            "sector":      round(sc7,1),
-            "shortReturn": round(sc8,1),
+            "supply":      round(sc1, 1),
+            "momentum":    round(sc2, 1),
+            "volume":      round(sc3, 1),
+            "fundamental": round(sc4, 1),
+            "volatility":  round(sc5, 1),
+            "news":        round(sc6, 1),
+            "sector":      round(sc7, 1),
+            "shortReturn": round(sc8, 1),
         },
-        "reasons": reasons[:4],   # ← 구조화된 이유 배열
-        "risk":    risk,           # ← 자동 생성 리스크
-    }
+        "reasons": reasons[:4],  # ← 구조화된 이유 배열
+        "risk":    risk,         # ← 자동 생성 리스크
+}
 
 def _auto_risk(s,sc1,sc2,sc5,sc8):
     c=s.get("closes",[])
