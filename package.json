@@ -1,11 +1,13 @@
 {
   "name": "stanleyim-github-io",
   "version": "0.1.0",
+  {
   "scripts": {
+    "build": "NODE_OPTIONS='--max-old-space-size=4096' next build",
     "dev": "next dev",
-    "build": "next build",
     "start": "next start"
-  },
+  }
+}
   "dependencies": {
     "next": "14.2.0",
     "react": "18.2.0",
