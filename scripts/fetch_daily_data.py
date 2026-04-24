@@ -405,8 +405,12 @@ total=(sc1*.25+sc2*.18+sc3*.15+sc4*.13+
        sc5*.10+sc6*.10+sc7*.05+sc8*.04)
 
 # 점수 높은 팩터 순으로 reason 최대 4개
-pairs = sorted([(sc1, r1), (sc2, r2), (sc3, r3), (sc4, r4),
-                (sc5, r5), (sc6, r6), (sc7, r7), (sc8, r8)], key=lambda x: -x[0])
+pairs = sorted(
+    [(sc1, r1), (sc2, r2), (sc3, r3), (sc4, r4),
+     (sc5, r5), (sc6, r6), (sc7, r7), (sc8, r8)],
+    key=lambda x: x[0],
+    reverse=True
+)
 reasons = []
     for _, rs in pairs:
         for x in rs:
