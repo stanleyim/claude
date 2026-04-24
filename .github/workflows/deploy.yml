@@ -13,23 +13,28 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - name: Checkout
+        uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
           node-version: 18
+          cache: 'npm'
+      
       - name: Install dependencies
         run: npm ci
-        working-directory:./claude
-      - name: Build
+      
+      - name: Build Next.js
         run: npm run build
-        working-directory:./claude
         env:
           NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
           NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
-      - name: Upload artifact
+      
+      - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path:./claude/out
+          path: ./out
 
   deploy:
     runs-on: ubuntu-latest
@@ -37,4 +42,5 @@ jobs:
     environment:
       name: github-pages
     steps:
-      - uses: actions/deploy-pages@v4
+      - name: Deploy to GitHub Pages
+        uses: actions/deploy-pages@v4
