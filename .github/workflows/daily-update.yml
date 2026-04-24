@@ -5,7 +5,8 @@ on:
     # 한국시간 매일 오전 8시 30분 = UTC 23:30 (전날)
     - cron: '30 23 * * 0-4'
   workflow_dispatch:
-
+permissions:
+  contents: write
 jobs:
   update-data:
     runs-on: ubuntu-latest
