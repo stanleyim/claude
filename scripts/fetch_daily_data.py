@@ -408,7 +408,7 @@ total=(sc1*.25+sc2*.18+sc3*.15+sc4*.13+
 pairs = sorted([(sc1, r1), (sc2, r2), (sc3, r3), (sc4, r4),
                 (sc5, r5), (sc6, r6), (sc7, r7), (sc8, r8)], key=lambda x: -x[0])
 reasons=[]
-    for _,rs in pairs:
+for _,rs in pairs:
         for x in rs:
             if x not in reasons: reasons.append(x)
         if len(reasons)>=4: break
