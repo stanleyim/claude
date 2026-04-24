@@ -10,7 +10,7 @@
 
 ### 1단계 — 저장소 만들기
 1. GitHub 앱 실행 → **New repository**
-2. Repository name: `ai-stock-radar`
+2. Repository name: `claude`
 3. Public 선택 → **Create repository**
 
 ### 2단계 — 파일 업로드
