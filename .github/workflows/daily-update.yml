@@ -26,13 +26,6 @@ jobs:
           python -m pip install --upgrade pip
           pip install --no-cache-dir -r requirements.txt
 
-      # ✅ 네트워크 / SSL 사전 확인
-      - name: Network check
-        run: |
-          python -c "import ssl; print('SSL:', ssl.OPENSSL_VERSION)"
-          python -c "import urllib.request; urllib.request.urlopen('https://finance.naver.com', timeout=10); print('Naver OK')"
-          python -c "import urllib.request; urllib.request.urlopen('https://finance.yahoo.com', timeout=10); print('Yahoo OK')"
-
       # ✅ 메인 분석 실행
       - name: Run analysis
         run: python scripts/fetch_daily_data.py
