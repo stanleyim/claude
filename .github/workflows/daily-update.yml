@@ -2,11 +2,10 @@ name: Daily Stock Analysis
 
 on:
   schedule:
-    # 한국시간 매일 오전 8시 30분 = UTC 23:30 (전날)
-    - cron: '30 23 * * 0-4'
+    # 한국시간 매일 오전 06:00 = UTC 21:00 (전날)
+    - cron: '0 21 * * 0-4'
   workflow_dispatch:
-permissions:
-  contents: write
+
 jobs:
   update-data:
     runs-on: ubuntu-latest
@@ -15,23 +14,38 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      # ✅ Python 3.10 고정
       - name: Setup Python 3.10
         uses: actions/setup-python@v5
         with:
           python-version: '3.10'
 
-      # ✅ pip upgrade + no-cache-dir + requirements.txt
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
           pip install --no-cache-dir -r requirements.txt
 
-      # ✅ 메인 분석 실행
+      - name: Network check
+        run: |
+          python -c "import ssl; print('SSL:', ssl.OPENSSL_VERSION)"
+          python -c "import urllib.request; urllib.request.urlopen('https://finance.naver.com', timeout=10); print('Naver OK')"
+
+      # ML 모델 학습 (데이터 있을 때만 실행)
+      - name: Train ML model
+        run: python scripts/train_ml_model.py
+
+      # 메인 분석
       - name: Run analysis
         run: python scripts/fetch_daily_data.py
 
-      # ✅ 결과 커밋
+      # 성과 추적
+      - name: Track prices
+        run: python scripts/track_prices.py
+
+      # 통계 계산
+      - name: Calculate stats
+        run: python scripts/calc_stats.py
+
+      # 결과 커밋
       - name: Commit data
         run: |
           git config --local user.email "action@github.com"
@@ -39,3 +53,4 @@ jobs:
           git add data/
           git diff --staged --quiet || git commit -m "📊 $(date '+%Y-%m-%d') 일일 분석 업데이트"
           git push
+          
