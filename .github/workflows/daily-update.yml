@@ -1,0 +1,75 @@
+name: Daily Stock Analysis
+
+on:
+  schedule:
+    - cron: '0 21 * * 0-4'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update-data:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15   # 🔥 전체 타임아웃 (중요)
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python 3.10
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Ensure data folder exists
+        run: mkdir -p data
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          if [ -f requirements.txt ]; then
+            pip install --no-cache-dir -r requirements.txt
+          else
+            pip install pandas requests beautifulsoup4 FinanceDataReader
+          fi
+
+      - name: Network check
+        run: |
+          python -c "import urllib.request; urllib.request.urlopen('https://finance.naver.com', timeout=10); print('Naver OK')"
+
+      # 🔥 ML 완전 스킵 (지금 단계에서는 필요 없음)
+      - name: Skip ML (temporary)
+        run: echo "skip ML"
+
+      # 🔥 핵심: 실행 시간 로그 추가
+      - name: Run analysis
+        run: |
+          echo "START ANALYSIS"
+          date
+          python scripts/fetch_daily_data.py
+          echo "END ANALYSIS"
+          date
+
+      # 🔥 실패해도 계속 진행 (중요)
+      - name: Track prices
+        run: python scripts/track_prices.py
+        continue-on-error: true
+
+      - name: Calculate stats
+        run: python scripts/calc_stats.py
+        continue-on-error: true
+
+      # 🔥 파일 확인 (핵심 디버깅)
+      - name: Check generated files
+        run: |
+          echo "=== DATA FILES ==="
+          ls -al data/
+
+      - name: Commit data
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add data/*.json
+          git commit -m "📊 $(date '+%Y-%m-%d') update" || echo "No changes"
+          git push
