@@ -22,7 +22,7 @@ async function loadData(){
 
 async function checkMarketStatus(){
   try{
-    const r=await fetch('./data/market_status.json?t='+Date.now());
+    const r=await fetch('./data/tracking.json?t='+Date.now());
     if(r.ok) return await r.json();
   }catch(e){}
   return null;
