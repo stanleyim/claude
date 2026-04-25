@@ -5,6 +5,7 @@ on:
     # 한국시간 매일 오전 06:00 = UTC 21:00 (전날)
     - cron: '0 21 * * 0-4'
   workflow_dispatch:
+
 permissions:
   contents: write
 
@@ -13,46 +14,66 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # 1. 코드 가져오기
       - name: Checkout
         uses: actions/checkout@v4
 
+      # 2. Python 설정
       - name: Setup Python 3.10
         uses: actions/setup-python@v5
         with:
           python-version: '3.10'
 
+      # 3. data 폴더 강제 생성 (중요)
+      - name: Ensure data folder exists
+        run: mkdir -p data
+
+      # 4. 의존성 설치 (안정 버전)
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install --no-cache-dir -r requirements.txt
+          if [ -f requirements.txt ]; then
+            pip install --no-cache-dir -r requirements.txt
+          else
+            pip install pandas requests beautifulsoup4 FinanceDataReader
+          fi
 
+      # 5. 네트워크 확인
       - name: Network check
         run: |
           python -c "import ssl; print('SSL:', ssl.OPENSSL_VERSION)"
           python -c "import urllib.request; urllib.request.urlopen('https://finance.naver.com', timeout=10); print('Naver OK')"
 
-      # ML 모델 학습 (데이터 있을 때만 실행)
+      # 6. ML 모델 학습 (실패해도 계속)
       - name: Train ML model
         run: python scripts/train_ml_model.py
+        continue-on-error: true
 
-      # 메인 분석
+      # 7. 메인 데이터 생성 (핵심)
       - name: Run analysis
         run: python scripts/fetch_daily_data.py
 
-      # 성과 추적
+      # 8. 가격 추적 (실패해도 OK)
       - name: Track prices
         run: python scripts/track_prices.py
+        continue-on-error: true
 
-      # 통계 계산
+      # 9. 통계 계산 (실패해도 OK)
       - name: Calculate stats
         run: python scripts/calc_stats.py
+        continue-on-error: true
 
-      # 결과 커밋
+      # 🔥 10. 파일 존재 확인 (디버깅 핵심)
+      - name: Check generated files
+        run: |
+          echo "=== DATA FILES ==="
+          ls -al data/
+
+      # 🔥 11. 커밋 & 푸시 (안정화)
       - name: Commit data
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          git add data/
-          git diff --staged --quiet || git commit -m "📊 $(date '+%Y-%m-%d') 일일 분석 업데이트"
+          git add data/*.json
+          git commit -m "📊 $(date '+%Y-%m-%d') update" || echo "No changes"
           git push
-          
