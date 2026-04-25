@@ -42,7 +42,7 @@ function showHoliday(msg){
   document.getElementById('aiSub').textContent='다음 거래일 오전 7시에 새로운 TOP 10이 업데이트됩니다.';
   document.getElementById('grid').innerHTML=`
     <div class="holiday-wrap">
-      <div class="holiday-icon">🎌</div>
+      <div class="holiday-icon">🇰🇷</div>
       <div class="holiday-title">${msg}</div>
       <div class="holiday-sub">다음 거래일 오전 7시에 새로운 TOP 10이 업데이트됩니다.</div>
     </div>`;
@@ -321,7 +321,7 @@ async function init(){
   // 주말 즉시 체크
   const day=new Date().getDay();
   if(day===0||day===6){
-    showHoliday('주말 — 증시 휴장일입니다 🎌');
+    showHoliday('주말 — 증시 휴장일입니다 🇰🇷');
     return;
   }
 
@@ -330,13 +330,13 @@ async function init(){
 
   // 휴장일 체크
   if(data?.isHoliday){
-    showHoliday(data.message||'오늘은 증시 휴장일입니다 🎌');
+    showHoliday(data.message||'오늘은 증시 휴장일입니다 🇰🇷');
     return;
   }
   if(!data){
     const status=await checkMarketStatus();
     if(status?.isHoliday){
-      showHoliday(status.message||'오늘은 증시 휴장일입니다 🎌');
+      showHoliday(status.message||'오늘은 증시 휴장일입니다 🇰🇷');
       return;
     }
     document.getElementById('aiText').textContent=
