@@ -5,6 +5,8 @@ on:
     # 한국시간 매일 오전 06:00 = UTC 21:00 (전날)
     - cron: '0 21 * * 0-4'
   workflow_dispatch:
+permissions:
+  contents: write
 
 jobs:
   update-data:
