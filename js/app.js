@@ -1,7 +1,7 @@
 // ════════════════════════════════
 // 설정
 // ════════════════════════════════
-const API_URL = "https://claude-ckuv.vercel.app/api/getTop10";
+const API_URL = "/api/getTop10";
 const TRACKING_URL = "https://claude-ckuv.vercel.app/api/tracking";
 const STATS_URL    = "https://claude-ckuv.vercel.app/api/stats";
 
