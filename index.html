@@ -98,5 +98,27 @@
 </div>
 
 <script src="/js/app.js?v=999"></script>
+  <script>
+(async () => {
+  alert("STEP 1: HTML 실행됨");
+
+  try {
+    const res = await fetch("https://claude-ckuv.vercel.app/api/getTop10");
+    alert("STEP 2: API 응답 받음");
+
+    const data = await res.json();
+    alert("STEP 3: JSON 파싱 성공");
+
+    document.body.innerHTML = `
+      <pre style="color:white;background:black;padding:20px;">
+      ${JSON.stringify(data, null, 2)}
+      </pre>
+    `;
+
+  } catch (e) {
+    alert("ERROR: " + e.message);
+  }
+})();
+  </script>
 </body>
   </html>
