@@ -2,11 +2,11 @@ export default async function handler(req, res) {
   try {
     // ✔ GitHub raw 데이터 (Vercel에서 가장 안정적)
     const tracking = await fetch(
-      "https://raw.githubusercontent.com/USER/REPO/main/data/tracking.json"
+      "https://raw.githubusercontent.com/stanleyim/claude/main/data/tracking.json"
     ).then(r => r.json());
 
     const stats = await fetch(
-      "https://raw.githubusercontent.com/USER/REPO/main/data/stats.json"
+      "https://raw.githubusercontent.com/stanleyim/claude/main/data/stats.json"
     ).then(r => r.json());
 
     // ✔ TOP10 생성
