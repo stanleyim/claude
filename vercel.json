@@ -1,0 +1,12 @@
+{
+  "rewrites": [
+    {
+      "source": "/tracking.json",
+      "destination": "/data/tracking.json"
+    },
+    {
+      "source": "/stats.json",
+      "destination": "/data/stats.json"
+    }
+  ]
+}
