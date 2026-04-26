@@ -1,0 +1,7 @@
+import fs from "fs";
+
+export default function handler(req, res) {
+  const file = fs.readFileSync("./data/tracking.json", "utf8");
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.status(200).json(JSON.parse(file));
+}
