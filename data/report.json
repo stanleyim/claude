@@ -1,6 +1,8 @@
 {
-  "title": "Daily Stock Report",
-  "generatedAt": "2026-04-26T17:58:04.963394",
+  "title": "Daily Stock Report", 
+  "generatedAt": "2026-04-26T17:36:33.523078",
   "summary": "Auto generated report from pipeline",
-  "data": []
+  "data": [
+    { "date": "2026-04-26", "users": 428 }
+  ]
 }
