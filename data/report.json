@@ -1,12 +1,6 @@
 {
-  "title": "Weekly Report",
-  "generatedAt": "2026-04-26T17:00:00Z",
-  "summary": "Total users: 1243, Active: 892",
-  "data": [
-    { "date": "2026-04-22", "users": 180 },
-    { "date": "2026-04-23", "users": 210 },
-    { "date": "2026-04-24", "users": 195 },
-    { "date": "2026-04-25", "users": 230 },
-    { "date": "2026-04-26", "users": 428 }
-  ]
+  "title": "Daily Stock Report",
+  "generatedAt": "2026-04-26T17:36:33.523078",
+  "summary": "Auto generated report from pipeline",
+  "data": []
 }
