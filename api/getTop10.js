@@ -40,9 +40,9 @@ export default function handler(req, res) {
     res.status(200).json(response);
 
   } catch (e) {
-    console.error(e); // 👈 로그 확인용
+    console.error(e);
     res.status(500).json({
       error: "data not ready"
     });
   }
-    }
+}
