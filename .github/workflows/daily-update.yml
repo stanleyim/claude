@@ -2,7 +2,7 @@ name: Daily Stock Pipeline
 
 on:
   schedule:
-    # 매일 오전 6시 (UTC 기준 → KST 15:00 이전 조정 필요하면 말해줘)
+    # UTC 기준 (KST 고려 필요)
     - cron: "0 21 * * 0-4"
   workflow_dispatch:
 
@@ -12,10 +12,12 @@ jobs:
 
     steps:
     # ─────────────────────────────
-    # 1. 코드 체크아웃
+    # 1. 코드 체크아웃 (안정화)
     # ─────────────────────────────
     - name: Checkout repo
       uses: actions/checkout@v4
+      with:
+        persist-credentials: true
 
     # ─────────────────────────────
     # 2. Python 설정
@@ -26,7 +28,7 @@ jobs:
         python-version: "3.10"
 
     # ─────────────────────────────
-    # 3. pip 캐시 (속도 핵심)
+    # 3. pip 캐시 (속도 + 안정성)
     # ─────────────────────────────
     - name: Cache pip
       uses: actions/cache@v3
@@ -37,7 +39,7 @@ jobs:
           ${{ runner.os }}-pip-
 
     # ─────────────────────────────
-    # 4. 의존성 설치 (최적화)
+    # 4. 의존성 설치 (강화)
     # ─────────────────────────────
     - name: Install dependencies
       run: |
@@ -45,30 +47,40 @@ jobs:
         pip install -r requirements.txt --no-cache-dir
 
     # ─────────────────────────────
-    # 5. 데이터 생성
+    # 5. 데이터 생성 (fail-safe)
     # ─────────────────────────────
     - name: Fetch daily stocks
-      run: python scripts/fetch_daily_data.py
+      run: |
+        set -e
+        python scripts/fetch_daily_data.py
 
     # ─────────────────────────────
-    # 6. 성과 추적
+    # 6. 성과 추적 (fail-safe)
     # ─────────────────────────────
     - name: Track performance
-      run: python scripts/track_prices.py
+      run: |
+        set -e
+        python scripts/track_prices.py
 
     # ─────────────────────────────
-    # 7. 통계 계산
+    # 7. 통계 계산 (fail-safe)
     # ─────────────────────────────
     - name: Calculate stats
-      run: python scripts/calc_stats.py
+      run: |
+        set -e
+        python scripts/calc_stats.py
 
     # ─────────────────────────────
-    # 8. 결과 커밋
+    # 8. 결과 커밋 + 푸시 (최종 안정화 핵심)
     # ─────────────────────────────
-    - name: Commit results
+    - name: Commit and push results
       run: |
         git config --global user.name "github-actions"
-        git config --global user.email "actions@github.com"
+        git config --global user.email "github-actions@github.com"
+
         git add data/
-        git commit -m "auto update data" || echo "No changes"
+
+        git diff --cached --quiet && echo "No changes" && exit 0
+
+        git commit -m "auto update data"
         git push
