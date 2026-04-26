@@ -1,21 +1,17 @@
-import fs from "fs";
-import path from "path";
-
-export default function handler(req, res) {
+export default async function handler(req, res) {
   try {
-    const trackingPath = path.join(process.cwd(), "data", "tracking.json");
-    const statsPath = path.join(process.cwd(), "data", "stats.json");
+    // ✔ GitHub raw 데이터 (Vercel에서 가장 안정적)
+    const tracking = await fetch(
+      "https://raw.githubusercontent.com/USER/REPO/main/data/tracking.json"
+    ).then(r => r.json());
 
-    const tracking = JSON.parse(
-      fs.readFileSync(trackingPath, "utf-8")
-    );
+    const stats = await fetch(
+      "https://raw.githubusercontent.com/USER/REPO/main/data/stats.json"
+    ).then(r => r.json());
 
-    const stats = JSON.parse(
-      fs.readFileSync(statsPath, "utf-8")
-    );
-
+    // ✔ TOP10 생성
     const top10 = tracking
-      .sort((a, b) => b.score - a.score)
+      .sort((a, b) => (b.score || 0) - (a.score || 0))
       .slice(0, 10)
       .map(item => ({
         symbol: item.code,
@@ -25,6 +21,7 @@ export default function handler(req, res) {
         result: item.result
       }));
 
+    // ✔ 최종 응답
     const response = {
       accuracy: stats.accuracy || 0,
       validated_count: stats.validated_count || 0,
@@ -37,11 +34,11 @@ export default function handler(req, res) {
       signal: stats.signal || "HOLD"
     };
 
-    res.status(200).json(response);
+    return res.status(200).json(response);
 
   } catch (e) {
-    console.error(e);
-    res.status(500).json({
+    console.error("API ERROR:", e);
+    return res.status(500).json({
       error: "data not ready"
     });
   }
