@@ -1,5 +1,165 @@
 {
   "updatedAt": "2026-04-26",
-  "hasData": false,
-  "message": "데이터 축적 중입니다. 5거래일 후부터 통계가 표시됩니다."
+  "hasData": true,
+  "overall": {
+    "totalTrades": 10,
+    "hits": 0,
+    "hitRate": 0.0,
+    "avgReturn": 0.0,
+    "bestReturn": 0,
+    "worstReturn": 0
+  },
+  "byRank": {
+    "1위": {
+      "hitRate": 0.0,
+      "avgReturn": 0.0,
+      "count": 1
+    },
+    "2위": {
+      "hitRate": 0.0,
+      "avgReturn": 0.0,
+      "count": 1
+    },
+    "3위": {
+      "hitRate": 0.0,
+      "avgReturn": 0.0,
+      "count": 1
+    },
+    "4위": {
+      "hitRate": 0.0,
+      "avgReturn": 0.0,
+      "count": 1
+    },
+    "5위": {
+      "hitRate": 0.0,
+      "avgReturn": 0.0,
+      "count": 1
+    },
+    "6위": {
+      "hitRate": 0.0,
+      "avgReturn": 0.0,
+      "count": 1
+    },
+    "7위": {
+      "hitRate": 0.0,
+      "avgReturn": 0.0,
+      "count": 1
+    },
+    "8위": {
+      "hitRate": 0.0,
+      "avgReturn": 0.0,
+      "count": 1
+    },
+    "9위": {
+      "hitRate": 0.0,
+      "avgReturn": 0.0,
+      "count": 1
+    },
+    "10위": {
+      "hitRate": 0.0,
+      "avgReturn": 0.0,
+      "count": 1
+    }
+  },
+  "byDay": {
+    "토": {
+      "hitRate": 0.0,
+      "avgReturn": 0.0,
+      "count": 10
+    }
+  },
+  "byScore": {
+    "75-79": {
+      "hitRate": 0.0,
+      "avgReturn": 0.0,
+      "count": 6
+    },
+    "70-74": {
+      "hitRate": 0.0,
+      "avgReturn": 0.0,
+      "count": 4
+    }
+  },
+  "recent": [
+    {
+      "date": "2026-04-25",
+      "rank": 1,
+      "name": "포스코스틸리온",
+      "code": "058430",
+      "entryPrice": 5410,
+      "finalReturn": 0
+    },
+    {
+      "date": "2026-04-25",
+      "rank": 2,
+      "name": "한진중공업홀딩스",
+      "code": "003480",
+      "entryPrice": 6020,
+      "finalReturn": 0
+    },
+    {
+      "date": "2026-04-25",
+      "rank": 3,
+      "name": "케이프",
+      "code": "064820",
+      "entryPrice": 16570,
+      "finalReturn": 0
+    },
+    {
+      "date": "2026-04-25",
+      "rank": 4,
+      "name": "한라IMS",
+      "code": "092460",
+      "entryPrice": 19920,
+      "finalReturn": 0
+    },
+    {
+      "date": "2026-04-25",
+      "rank": 5,
+      "name": "아가방컴퍼니",
+      "code": "013990",
+      "entryPrice": 5320,
+      "finalReturn": 0
+    },
+    {
+      "date": "2026-04-25",
+      "rank": 6,
+      "name": "민테크",
+      "code": "452200",
+      "entryPrice": 2855,
+      "finalReturn": 0
+    },
+    {
+      "date": "2026-04-25",
+      "rank": 7,
+      "name": "DI동일",
+      "code": "001530",
+      "entryPrice": 32150,
+      "finalReturn": 0
+    },
+    {
+      "date": "2026-04-25",
+      "rank": 8,
+      "name": "현대코퍼레이션",
+      "code": "011760",
+      "entryPrice": 31700,
+      "finalReturn": 0
+    },
+    {
+      "date": "2026-04-25",
+      "rank": 9,
+      "name": "에이블씨엔씨",
+      "code": "078520",
+      "entryPrice": 14300,
+      "finalReturn": 0
+    },
+    {
+      "date": "2026-04-25",
+      "rank": 10,
+      "name": "상상인증권",
+      "code": "001290",
+      "entryPrice": 1335,
+      "finalReturn": 0
+    }
+  ]
 }
