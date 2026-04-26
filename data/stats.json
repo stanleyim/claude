@@ -6,8 +6,8 @@
     "hits": 0,
     "hitRate": 0.0,
     "avgReturn": 0.0,
-    "bestReturn": 0,
-    "worstReturn": 0
+    "bestReturn": 0.0,
+    "worstReturn": 0.0
   },
   "byRank": {
     "1위": {
@@ -87,7 +87,7 @@
       "name": "포스코스틸리온",
       "code": "058430",
       "entryPrice": 5410,
-      "finalReturn": 0
+      "finalReturn": 0.0
     },
     {
       "date": "2026-04-25",
@@ -95,7 +95,7 @@
       "name": "한진중공업홀딩스",
       "code": "003480",
       "entryPrice": 6020,
-      "finalReturn": 0
+      "finalReturn": 0.0
     },
     {
       "date": "2026-04-25",
@@ -103,7 +103,7 @@
       "name": "케이프",
       "code": "064820",
       "entryPrice": 16570,
-      "finalReturn": 0
+      "finalReturn": 0.0
     },
     {
       "date": "2026-04-25",
@@ -111,7 +111,7 @@
       "name": "한라IMS",
       "code": "092460",
       "entryPrice": 19920,
-      "finalReturn": 0
+      "finalReturn": 0.0
     },
     {
       "date": "2026-04-25",
@@ -119,7 +119,7 @@
       "name": "아가방컴퍼니",
       "code": "013990",
       "entryPrice": 5320,
-      "finalReturn": 0
+      "finalReturn": 0.0
     },
     {
       "date": "2026-04-25",
@@ -127,7 +127,7 @@
       "name": "민테크",
       "code": "452200",
       "entryPrice": 2855,
-      "finalReturn": 0
+      "finalReturn": 0.0
     },
     {
       "date": "2026-04-25",
@@ -135,7 +135,7 @@
       "name": "DI동일",
       "code": "001530",
       "entryPrice": 32150,
-      "finalReturn": 0
+      "finalReturn": 0.0
     },
     {
       "date": "2026-04-25",
@@ -143,7 +143,7 @@
       "name": "현대코퍼레이션",
       "code": "011760",
       "entryPrice": 31700,
-      "finalReturn": 0
+      "finalReturn": 0.0
     },
     {
       "date": "2026-04-25",
@@ -151,7 +151,7 @@
       "name": "에이블씨엔씨",
       "code": "078520",
       "entryPrice": 14300,
-      "finalReturn": 0
+      "finalReturn": 0.0
     },
     {
       "date": "2026-04-25",
@@ -159,7 +159,7 @@
       "name": "상상인증권",
       "code": "001290",
       "entryPrice": 1335,
-      "finalReturn": 0
+      "finalReturn": 0.0
     }
   ]
 }
