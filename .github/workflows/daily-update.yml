@@ -3,7 +3,7 @@ name: Daily Stock Pipeline
 on:
   schedule:
     # UTC 기준 (KST = UTC+9, 장 마감 후 오후 6시 = UTC 09:00)
-    - cron: "0 21 * 0-4"
+    - cron: "0 21 * * 0-4"
   workflow_dispatch:
 
 jobs:
