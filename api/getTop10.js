@@ -1,45 +1,35 @@
 export default async function handler(req, res) {
   try {
-    // ✔ GitHub raw 데이터 (Vercel에서 가장 안정적)
-    const tracking = await fetch(
-      "https://raw.githubusercontent.com/stanleyim/claude/main/data/tracking.json"
+
+    // ✅ 실제 TOP10 데이터
+    const stocksData = await fetch(
+      "https://raw.githubusercontent.com/stanleyim/claude/main/data/daily_stocks.json"
     ).then(r => r.json());
 
-    const stats = await fetch(
+    // ✅ 통계
+    const statsData = await fetch(
       "https://raw.githubusercontent.com/stanleyim/claude/main/data/stats.json"
     ).then(r => r.json());
 
-    // ✔ TOP10 생성
-    const top10 = tracking
-      .sort((a, b) => (b.score || 0) - (a.score || 0))
-      .slice(0, 10)
-      .map(item => ({
-        symbol: item.code,
-        name: item.name,
-        score: item.score,
-        return: item.finalReturn || 0,
-        result: item.result
+    const top10 = (stocksData.stocks || [])
+      .sort((a,b) => (b.score?.total || 0) - (a.score?.total || 0))
+      .slice(0,10)
+      .map(s => ({
+        symbol: s.code,
+        name: s.name,
+        score: s.score?.total || 0,
+        return: 0,
+        result: "pending"
       }));
 
-    // ✔ 최종 응답
-    const response = {
-      accuracy: stats.accuracy || 0,
-      validated_count: stats.validated_count || 0,
-      analyzed_count: stats.analyzed_count || 0,
-      top10,
-      factor_scores: stats.factor_scores || {
-        momentum: 0,
-        volume: 0
-      },
-      signal: stats.signal || "HOLD"
-    };
-
-    return res.status(200).json(response);
+    res.status(200).json({
+      accuracy: statsData?.overall?.accuracy || 0,
+      validated_count: statsData?.overall?.total || 0,
+      analyzed_count: stocksData?.totalAnalyzed || 0,
+      top10
+    });
 
   } catch (e) {
-    console.error("API ERROR:", e);
-    return res.status(500).json({
-      error: "data not ready"
-    });
+    res.status(500).json({ error: e.message });
   }
 }
