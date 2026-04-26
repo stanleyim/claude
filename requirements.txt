@@ -1,4 +1,4 @@
-finance-datareader==1.5.6
+finance-datareader>=0.9.90
 pandas==2.2.2
 numpy==1.26.4
 requests==2.31.0
